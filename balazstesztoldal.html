@@ -10,24 +10,27 @@
 <div class="container">
     <h2>Könyvek</h2>
     <form id="konyv-form">
+        <h2>Könyv hozzáadása</h2>
         <div class="form-group">
             <label for="name">Cím</label>
-            <input type="text" class="form-control" id="cim" placeholder="adj meg egy címet">
+            <input type="text" class="form-control" id="cim" placeholder="Add meg egy címet">
         </div>
         <div class="form-group">
             <label for="name">Szerző</label>
-            <input type="text" class="form-control" id="szerzo" placeholder="Add meg a neved">
+            <input type="text" class="form-control" id="szerzo" placeholder="Add meg a szerzot">
         </div>
         <div class="form-group">
             <label for="name">Kiadási év</label>
-            <input type="text" class="form-control" id="kiadasi_ev" placeholder="Add meg a neved">
+            <input type="text" class="form-control" id="kiadasi_ev" placeholder="Add meg a kiadasi evet">
         </div>
         <div class="form-group">
-            <label for="message">megjegyzés</label>
-            <textarea class="form-control" id="megjegyzes" placeholder="Írd ide az üzeneted"></textarea>
+            <label for="message">Megjegyzés</label>
+            <textarea class="form-control" id="megjegyzes" placeholder="ird be a megjegyzest"></textarea>
         </div>
+        <br>
         <button type="submit" class="btn btn-primary">Könyv Publikálás</button>
     </form>
+    <h2>Könyvek listája</h2>
     <ul id="konyv-list" class="list-group mt-4"></ul>
 </div>
 <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-app-compat.js"></script>
@@ -73,7 +76,10 @@
             let msg = documents[i].data();
             const li = document.createElement('li');
             li.classList.add('list-group-item');
-            li.innerText = `${msg.konyv_cim}: ${msg.konyv_szerzo}: ${msg.konyv_kiadasi_ev}: ${msg.konyv_megjegyzes}`;
+            li.innerText = `Cím  : ${msg.konyv_cim}
+            Szerző  : ${msg.konyv_szerzo} 
+            Kiadási év  : ${msg.konyv_kiadasi_ev}
+            Megjegyzés  : ${msg.konyv_megjegyzes}`;
             konyvekList.appendChild(li);
         }
     });
