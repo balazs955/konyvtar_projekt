@@ -1,7 +1,79 @@
 body{
     background-image: url('bg.jpg');
     background-repeat: no-repeat;
-    overflow: hidden;
+    overflow-x: hidden;
+}
+p{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: black;
+    font-size: 1.5vw;
+}
+.navbar{
+    background-color: black;
+}
+.barnav{
+    margin-left: 2%;
+}
+.container{
+    display: flex;
+    flex-wrap: wrap;
+}
+.slot{
+    width: 300px;
+    height: 250px;
+    background-color: rgba(255, 255, 255);
+    border: black solid 4px;
+    border-radius: 5%;
+    margin-top: 100px;
+}
+.kor{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: green;
+    display: flex;
+    justify-content: end;
+    margin-left: -5%;
+    margin-top: 6%;
+    border: solid 2px black;
+}
+.slotrow1{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.cim{
+    border-radius: 0%;
+    width: 240px;
+    margin-left: 5%;
+    margin-top: 6%;
+    filter: drop-shadow(0px 1px 1px black);
+}
+.szerzo{
+    margin-left: 5%;
+    filter: drop-shadow(0px 1px 1px black);
+    background-color: rgb(200, 200, 200);
+    border-radius: 10%;
+    width: 260px;
+    text-align: center;
+}
+.kiadas{
+    margin-left: 5%;
+    filter: drop-shadow(0px 1px 1px black);
+    background-color: rgb(200, 200, 200);
+    border-radius: 10%;
+    width: 260px;
+    text-align: center;
+}
+.megjegyzes{
+    margin-left: 5%;
+    filter: drop-shadow(0px 1px 1px black);
+    background-color: rgb(200, 200, 200);
+    border-radius: 10%;
+    width: 260px;
+    text-align: center;
+}
+hr{
+    border: 2px black solid;
 }
 .list-group{
     width: 300px;
@@ -10,4 +82,12 @@ body{
     border: black solid 4px;
     border-radius: 5%;
     margin-top: 100px;
+}
+nav{
+    filter: drop-shadow(0px 4px 4px black);
+    margin-bottom: 4%;
+}
+.containerform{
+    display: flex;
+    flex-wrap: wrap;
 }
