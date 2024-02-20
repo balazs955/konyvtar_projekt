@@ -76,7 +76,8 @@
             let msg = documents[i].data();
             const li = document.createElement('li');
             li.classList.add('list-group-item');
-            li.innerText = `Cím  : ${msg.konyv_cim}
+            li.innerText = `
+            Cím  :${msg.konyv_cim}
             Szerző  : ${msg.konyv_szerzo} 
             Kiadási év  : ${msg.konyv_kiadasi_ev}
             Megjegyzés  : ${msg.konyv_megjegyzes}`;
