@@ -50,9 +50,11 @@
             </form>
         </div>
 
-        <div class="containerform">
+        <div class="containerform" id="konyv-list">
             <div class="row">
-                <ul id="konyv-list" class="list-group mt-4 booksform"></ul>
+                <div class="col-4">
+                    <ul class="list-group mt-4 booksform"></ul>
+                </div>
             </div>
         </div>
 
@@ -105,7 +107,10 @@
             const li = document.createElement('li');
             li.classList.add('list-group-item', 'slotrow'); // Hozzáadjuk a 'slotrow' class-t a létrehozott 'li' elemhez
             li.innerHTML = `
-                <div class="row slotrow1">
+            <div class="row">
+                <div class="col-4">
+                    <ul class="list-group mt-4 booksform">
+                        <div class="row slotrow1">
                     <div class="cim">
                         <p>${msg.konyv_cim}</p>
                         <hr>
@@ -134,7 +139,10 @@
                             <p>${msg.konyv_megjegyzes}</p>
                         </div>
                     </div>
-                </div>`;
+                </div>
+                    </ul>
+                </div>
+            </div>`;
             konyvekList.appendChild(li);
         }
             });
