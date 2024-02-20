@@ -148,8 +148,8 @@
                 const konyvek = konyvekList.getElementsByClassName('list-group-item');
                 for (let i = 0; i < konyvek.length; i++) {
                     const konyv = konyvek[i];
-                    const cim = konyv.querySelector('.cim').textContent.toLowerCase();
-                    const szerzo = konyv.querySelector('.szerzo').textContent.toLowerCase();
+                    const cim = konyv.querySelector('.cim p').textContent.toLowerCase();
+                    const szerzo = konyv.querySelector('.szerzo p').textContent.toLowerCase();
                     if (cim == kereses || szerzo == kereses) {
                         konyv.style.display = 'block';
                     } else {

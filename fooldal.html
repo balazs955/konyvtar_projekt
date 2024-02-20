@@ -13,14 +13,13 @@
     <body>
         <div class="row">
             <nav class="navbar">
-                <form class="form-inline barnav">
+                <form id="search-form" class="form-inline barnav">
                     <div class="row">
                         <div class="col">
-                            <input class="form-control" type="search" placeholder="Keresés...." aria-label="Search">
+                            <input id="search-input" class="form-control" type="search" placeholder="Keresés...." aria-label="Search">
                         </div>
                         <div class="col">
-                            <button class="btn btn-outline-light my-2 my-sm-0" type="button">Keresés</button>
-                        </form>
+                            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Keresés</button>
                         </div>
                     </div>
                 </form>
@@ -145,6 +144,22 @@
             </div>`;
             konyvekList.appendChild(li);
         }
+            });
+            document.getElementById('search-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const kereses = document.getElementById('search-input').value.toLowerCase();
+                const konyvekList = document.getElementById('konyv-list');
+                const konyvek = konyvekList.getElementsByClassName('list-group-item');
+                for (let i = 0; i < konyvek.length; i++) {
+                    const konyv = konyvek[i];
+                    const cim = konyv.querySelector('.cim p').textContent.toLowerCase();
+                    const szerzo = konyv.querySelector('.szerzo p').textContent.toLowerCase();
+                    if (cim == kereses || szerzo == kereses) {
+                        konyv.style.display = 'block';
+                    } else {
+                        konyv.style.display = 'none';
+                    }
+                }
             });
         </script>
     </body>    
