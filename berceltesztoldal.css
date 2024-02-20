@@ -21,3 +21,23 @@ body{
     border-radius: 5%;
     margin-top: 100px;
 }
+.kor{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: green;
+    display: flex;
+    justify-content: end;
+   margin-left: -5%;
+    margin-top: 6%;
+    border: solid 2px black;
+}
+.slotrow1{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.cim{
+    background-color: black;
+    width: 240px;
+    margin-left: 5%;
+}
