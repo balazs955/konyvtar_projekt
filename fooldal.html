@@ -13,14 +13,13 @@
     <body>
         <div class="row">
             <nav class="navbar">
-                <form class="form-inline barnav">
+                <form id="search-form" class="form-inline barnav">
                     <div class="row">
                         <div class="col">
-                            <input class="form-control" type="search" placeholder="Keresés...." aria-label="Search">
+                            <input id="search-input" class="form-control" type="search" placeholder="Keresés...." aria-label="Search">
                         </div>
                         <div class="col">
-                            <button class="btn btn-outline-light my-2 my-sm-0" type="button">Keresés</button>
-                        </form>
+                            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Keresés</button>
                         </div>
                     </div>
                 </form>
@@ -35,15 +34,15 @@
                 </div>
                 <div class="form-group">
                     <label for="name">Szerző</label>
-                    <input type="text" class="form-control" id="szerzo" placeholder="Add meg a szerzot">
+                    <input type="text" class="form-control" id="szerzo" placeholder="Add meg a szerzőt">
                 </div>
                 <div class="form-group">
                     <label for="name">Kiadási év</label>
-                    <input type="text" class="form-control" id="kiadasi_ev" placeholder="Add meg a kiadasi evet">
+                    <input type="text" class="form-control" id="kiadasi_ev" placeholder="Add meg a kiadási évet">
                 </div>
                 <div class="form-group">
                     <label for="message">Megjegyzés</label>
-                    <textarea class="form-control" id="megjegyzes" placeholder="ird be a megjegyzest"></textarea>
+                    <textarea class="form-control" id="megjegyzes" placeholder="Írd be a megjegyzést"></textarea>
                 </div>
                 <br>
                 <button type="submit" class="btn btn-secondary">Könyv Publikálás</button>
@@ -58,11 +57,7 @@
             </div>
         </div>
 
-
-
-
-<!--- HTML-JS -->
-
+        <!-- JavaScript -->
         <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore-compat.js"></script>
         <script>
@@ -103,48 +98,64 @@
                 konyvekList.innerHTML = '';
                 const documents = querySnapshot.docs;
                 for (let i = 0; i < documents.length; i++) {
-            let msg = documents[i].data();
-            const li = document.createElement('li');
-            li.classList.add('list-group-item', 'slotrow'); // Hozzáadjuk a 'slotrow' class-t a létrehozott 'li' elemhez
-            li.innerHTML = `
-            <div class="row">
-                <div class="col-4">
-                    <ul class="list-group mt-4 booksform">
-                        <div class="row slotrow1">
-                    <div class="cim">
-                        <p>${msg.konyv_cim}</p>
-                        <hr>
-                    </div>
-                    <div class="pont">
-                        <div class="kor"></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="szerzo">
-                            <p>${msg.konyv_szerzo}</p>
+                    let msg = documents[i].data();
+                    const li = document.createElement('li');
+                    li.classList.add('list-group-item', 'slotrow'); // Hozzáadjuk a 'slotrow' class-t a létrehozott 'li' elemhez
+                    li.innerHTML = `
+                    <div class="row">
+                        <div class="col-4">
+                            <ul class="list-group mt-4 booksform">
+                                <div class="row slotrow1">
+                                    <div class="cim">
+                                        <p>${msg.konyv_cim}</p>
+                                        <hr>
+                                    </div>
+                                    <div class="pont">
+                                        <div class="kor"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="szerzo">
+                                            <p>${msg.konyv_szerzo}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="kiadas">
+                                            <p>${msg.konyv_kiadasi_ev}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="megjegyzes">
+                                            <p>${msg.konyv_megjegyzes}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="kiadas">
-                            <p>${msg.konyv_kiadasi_ev}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="megjegyzes">
-                            <p>${msg.konyv_megjegyzes}</p>
-                        </div>
-                    </div>
-                </div>
-                    </ul>
-                </div>
-            </div>`;
-            konyvekList.appendChild(li);
-        }
+                    </div>`;
+                    konyvekList.appendChild(li);
+                }
+            });
+            document.getElementById('search-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const kereses = document.getElementById('search-input').value.toLowerCase();
+                const konyvekList = document.getElementById('konyv-list');
+                const konyvek = konyvekList.getElementsByClassName('list-group-item');
+                for (let i = 0; i < konyvek.length; i++) {
+                    const konyv = konyvek[i];
+                    const cim = konyv.querySelector('.cim').textContent.toLowerCase();
+                    const szerzo = konyv.querySelector('.szerzo').textContent.toLowerCase();
+                    if (cim == kereses || szerzo == kereses) {
+                        konyv.style.display = 'block';
+                    } else {
+                        konyv.style.display = 'none';
+                    }
+                }
             });
         </script>
     </body>    
