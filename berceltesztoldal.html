@@ -11,32 +11,88 @@
     <link rel="icon" type="image/x-icon" href="icon.PNG">
 </head>
     <body>
-        <div class="row">
-            <nav class="navbar">
-                <form class="form-inline barnav">
-                    <div class="row">
-                        <div class="col">
-                            <input class="form-control" type="search" placeholder="Keresés...." aria-label="Search">
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-outline-light my-2 my-sm-0" type="button">Keresés</button>
-                        </form>
-                        </div>
-                    </div>
-                </form>
-              </nav>
+        <div class="container">
+            <form id="konyv-form">
+                <h3>Könyv hozzáadása</h3>
+                <div class="form-group">
+                    <label for="name">Cím</label>
+                    <input type="text" class="form-control" id="cim" placeholder="Add meg egy címet">
+                </div>
+                <div class="form-group">
+                    <label for="name">Szerző</label>
+                    <input type="text" class="form-control" id="szerzo" placeholder="Add meg a szerzot">
+                </div>
+                <div class="form-group">
+                    <label for="name">Kiadási év</label>
+                    <input type="text" class="form-control" id="kiadasi_ev" placeholder="Add meg a kiadasi evet">
+                </div>
+                <div class="form-group">
+                    <label for="message">Megjegyzés</label>
+                    <textarea class="form-control" id="megjegyzes" placeholder="ird be a megjegyzest"></textarea>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-secondary">Könyv Publikálás</button>
+            </form>
         </div>
 
         <div class="containerform">
-            
+            <div class="row">
+                <ul id="konyv-list" class="list-group mt-4"></ul>
+            </div>
         </div>
 
 
-        <div class="container" id="contID">
-            <div class="slot">
+
+
+<!--- HTML-JS -->
+
+        <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.8.1/firebase-firestore-compat.js"></script>
+        <script>
+            const firebaseConfig = {
+                apiKey: "AIzaSyBcuvyGjUxyCmtmNBCmLVERw72BR3Cab-Y",
+                authDomain: "konyvek-22c0e.firebaseapp.com",
+                projectId: "konyvek-22c0e",
+                storageBucket: "konyvek-22c0e.appspot.com",
+                messagingSenderId: "339257789513",
+                appId: "1:339257789513:web:419b7cd3242076b3114398"
+            };
+            const app = firebase.initializeApp(firebaseConfig);
+            const db = firebase.firestore(app);
+        
+            document.getElementById('konyv-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const cim = document.getElementById('cim').value;
+                const szerzo = document.getElementById('szerzo').value;
+                const kiadasi_ev = document.getElementById('kiadasi_ev').value;
+                const megjegyzes = document.getElementById('megjegyzes').value;
+        
+                db.collection("konyvek").add({
+                    konyv_cim: cim,
+                    konyv_szerzo: szerzo,
+                    konyv_kiadasi_ev: kiadasi_ev,
+                    konyv_megjegyzes: megjegyzes
+                })
+                    .then((docRef) => {
+                        console.log(docRef.id)
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            });
+        
+            db.collection("konyvek").onSnapshot((querySnapshot) => {
+                const konyvekList = document.getElementById('konyv-list');
+                konyvekList.innerHTML = '';
+                const documents = querySnapshot.docs;
+                for (let i = 0; i < documents.length; i++) {
+            let msg = documents[i].data();
+            const li = document.createElement('li');
+            li.classList.add('list-group-item', 'slotrow'); // Hozzáadjuk a 'slotrow' class-t a létrehozott 'li' elemhez
+            li.innerHTML = `
                 <div class="row slotrow1">
                     <div class="cim">
-                        <p id="cimID">Gold János</p>
+                        <p>${msg.konyv_cim}</p>
                         <hr>
                     </div>
                     <div class="pont">
@@ -46,27 +102,27 @@
                 <div class="row">
                     <div class="col">
                         <div class="szerzo">
-                            <p id="szerzoID">Stoneheart man sons's</p>
+                            <p>${msg.konyv_szerzo}</p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="kiadas">
-                            <p id="kiadasID">2077.05.07</p>
+                            <p>${msg.konyv_kiadasi_ev}</p>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <div class="megjegyzes">
-                            <p id="megjegyzesID">Ez egy kötelező olvasmány egyébként</p>
+                            <p>${msg.konyv_megjegyzes}</p>
                         </div>
                     </div>
-                </div>
-            </div>
-
-        </div>
-    
-    </body>
+                </div>`;
+            konyvekList.appendChild(li);
+        }
+            });
+        </script>
+    </body>    
 </html>
