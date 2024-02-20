@@ -27,7 +27,9 @@
               </nav>
         </div>
         <div class="container">
-            <form id="konyv-form">
+            <div class="row">
+                <div class="col-12">
+                    <form id="konyv-form" class="formclass">
                 <h3>Könyv hozzáadása</h3>
                 <div class="form-group">
                     <label for="name">Cím</label>
@@ -48,10 +50,12 @@
                 <br>
                 <button type="submit" class="btn btn-secondary">Könyv Publikálás</button>
             </form>
+                </div>
+            </div>
         </div>
 
         <div class="containerform" id="konyv-list">
-            <div class="row">
+            <div class="row panel">
                 <div class="col-4">
                     <ul class="list-group mt-4 booksform"></ul>
                 </div>
@@ -107,7 +111,7 @@
             const li = document.createElement('li');
             li.classList.add('list-group-item', 'slotrow'); // Hozzáadjuk a 'slotrow' class-t a létrehozott 'li' elemhez
             li.innerHTML = `
-            <div class="row">
+            <div class="row panel">
                 <div class="col-4">
                     <ul class="list-group mt-4 booksform">
                         <div class="row slotrow1">
